@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="64" height="48" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="base_tileset" tilewidth="16" tileheight="16">
+  <image source="../../../Orginal of Sidescroller_16x16/res/tilesets/base_tileset.png" width="1024" height="1728"/>
+  <tile id="3183">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4207">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4212">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Ground" width="64" height="48">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3ZTQqDQAwGUA/gwqO68f6lFEGkox2c/74H2UVIFvlm4TQBAAAAqaxznt4evPfZK2Uv0LbjPd/ddUwvAO36luehXI/ppbx1+VTrepkTRnaV5+dcj+mFXEZ/O0bfj/p+yfInBTX0kp2l5yx9n/IA0tmWcN39q7n6tmTlmvMf9n8B5UHK1QAwAAA=
+  </data>
+ </layer>
+ <layer name="Deco" width="64" height="48">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2ZzQmDQBCFDUoOEoJJCpE0kZsXi0oH6SOVBEsKQURdRndn/9xn5oPHeHirPocdEbNMEARBEARBEATBL8c8jBeFByMTx4vCk5GJ40XhegvjRaC9jPLpReF9mldfXhQk/7z68iIw3c+6fc3xoqD2c62vHC8Kkp+url4UJD9dXb0IUPN8aa5zvCgs9ZPqK8e7BW3Zi8MW+W3uMxR76r8Nkn+92noRWJvn6lzneFHQ9XPaV44XBcT8Pt8dKeZvyl4xSDF/TP41v8ksd1Hq/HoVUqmz1/ym7wbTHPdJltpj/tjfP+r+5GYfMH0Gqc0DNY9LDzlra825uHSW69R7iJWfurYL1WE8fjH+P6PnH+bFkrqclm6dqxqm/5PT0q3TURW0UuNc0NLxBesx404AMAAA
+  </data>
+ </layer>
+ <layer name="Deco #2" width="64" height="48">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3SoQ0AAAgDQViB/YclLIAjQdy5F3WNAAAAAAAAAAAAAGBU7n21hQ/8H/5rHmZMqAAwAAA=
+  </data>
+ </layer>
+ <objectgroup name="Stars" width="64" height="48">
+  <properties>
+   <property name="Name" value="Stars"/>
+  </properties>
+  <object name="Star" type="Star" x="416" y="304" width="16" height="16">
+   <properties>
+    <property name="Star" value="true"/>
+   </properties>
+  </object>
+  <object name="Star" type="Star" x="592" y="304" width="16" height="16">
+   <properties>
+    <property name="Star" value="true"/>
+   </properties>
+  </object>
+  <object name="Star" x="400" y="400" width="16" height="16"/>
+  <object name="Star" x="432" y="400" width="16" height="16"/>
+  <object name="Star" x="576" y="400" width="16" height="16"/>
+  <object name="Star" x="560" y="496" width="16" height="16"/>
+  <object name="Star" x="592" y="496" width="16" height="16"/>
+  <object name="Star" x="624" y="496" width="16" height="16"/>
+  <object name="Star" x="640" y="592" width="16" height="16"/>
+  <object name="Star" x="608" y="592" width="16" height="16"/>
+  <object name="Star" x="576" y="592" width="16" height="16"/>
+  <object name="Star" x="544" y="592" width="16" height="16"/>
+  <object name="Star" x="464" y="592" width="16" height="16"/>
+  <object name="Star" x="432" y="592" width="16" height="16"/>
+  <object name="Star" x="400" y="592" width="16" height="16"/>
+  <object name="Star" x="384" y="496" width="16" height="16"/>
+  <object name="Star" x="416" y="496" width="16" height="16"/>
+  <object name="Star" x="448" y="496" width="16" height="16"/>
+  <object name="Star" x="368" y="592" width="16" height="16"/>
+  <object name="Star" x="608" y="400" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="Shrooms" width="64" height="48">
+  <properties>
+   <property name="Name" value="Shrooms"/>
+  </properties>
+ </objectgroup>
+ <objectgroup name="Coins" width="64" height="48">
+  <properties>
+   <property name="Name" value="Coins"/>
+  </properties>
+  <object name="Coin" type="Coin" x="224" y="384" width="16" height="16">
+   <properties>
+    <property name="Coin" value="true"/>
+    <property name="Type" value="0"/>
+   </properties>
+  </object>
+  <object name="Coin" type="Coin" x="272" y="368" width="16" height="16">
+   <properties>
+    <property name="Coin" value="true"/>
+    <property name="Type" value="1"/>
+   </properties>
+  </object>
+  <object name="Coin" type="Coin" x="320" y="352" width="16" height="16">
+   <properties>
+    <property name="Coin" value="true"/>
+    <property name="Type" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Spawn" width="64" height="48">
+  <properties>
+   <property name="Name" value="Spawn"/>
+  </properties>
+  <object name="Spawn" type="Spawn" x="32" y="720" width="16" height="16">
+   <properties>
+    <property name="Spawn" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Exit" width="64" height="48">
+  <properties>
+   <property name="Name" value="Exit"/>
+  </properties>
+ </objectgroup>
+ <objectgroup name="Flags" width="64" height="48">
+  <properties>
+   <property name="Name" value="Flags"/>
+  </properties>
+  <object name="Flag" type="Flag" x="416" y="192" width="16" height="16">
+   <properties>
+    <property name="Flag" value="true"/>
+    <property name="Type" value="3"/>
+   </properties>
+  </object>
+  <object name="Flag" type="Flag" x="592" y="192" width="16" height="16">
+   <properties>
+    <property name="Flag" value="true"/>
+    <property name="Type" value="3"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Torches" width="64" height="48">
+  <properties>
+   <property name="Name" value="Torches"/>
+  </properties>
+  <object name="Torch" type="Torch" x="464" y="640" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="544" y="640" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="384" y="640" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="384" y="688" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="624" y="640" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="624" y="688" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="384" y="544" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="448" y="544" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="560" y="544" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="624" y="544" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="576" y="448" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="608" y="448" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="592" y="352" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="416" y="352" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="400" y="448" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+  <object name="Torch" type="Torch" x="432" y="448" width="16" height="16">
+   <properties>
+    <property name="Torch" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Signs" width="64" height="48">
+  <properties>
+   <property name="Name" value="Signs"/>
+  </properties>
+  <object name="Sign" type="Sign" x="64" y="720" width="16" height="16">
+   <properties>
+    <property name="Sign" value="true"/>
+    <property name="Type" value="0"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Diamond" width="64" height="48">
+  <properties>
+   <property name="Name" value="Diamond"/>
+  </properties>
+  <object name="Diamond" type="Diamond" x="416" y="96" width="16" height="16">
+   <properties>
+    <property name="Diamond" value="true"/>
+    <property name="Type" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Keys" width="64" height="48">
+  <properties>
+   <property name="Name" value="Keys"/>
+  </properties>
+  <object name="Key" type="Key" x="592" y="96" width="16" height="16">
+   <properties>
+    <property name="Key" value="true"/>
+    <property name="Type" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Spikes" width="64" height="48">
+  <properties>
+   <property name="Name" value="Spikes"/>
+  </properties>
+  <object name="Spike" x="576" y="304" width="16" height="16"/>
+  <object name="Spike" x="608" y="304" width="16" height="16"/>
+  <object name="Spike" x="560" y="400" width="16" height="16"/>
+  <object name="Spike" x="592" y="400" width="16" height="16"/>
+  <object name="Spike" x="624" y="400" width="16" height="16"/>
+  <object name="Spike" x="544" y="496" width="16" height="16"/>
+  <object name="Spike" x="576" y="496" width="16" height="16"/>
+  <object name="Spike" x="608" y="496" width="16" height="16"/>
+  <object name="Spike" x="640" y="496" width="16" height="16"/>
+  <object name="Spike" x="528" y="592" width="16" height="16"/>
+  <object name="Spike" x="560" y="592" width="16" height="16"/>
+  <object name="Spike" x="592" y="592" width="16" height="16"/>
+  <object name="Spike" x="624" y="592" width="16" height="16"/>
+  <object name="Spike" x="656" y="592" width="16" height="16"/>
+  <object name="Spike" x="448" y="592" width="16" height="16"/>
+  <object name="Spike" x="480" y="592" width="16" height="16"/>
+  <object name="Spike" x="416" y="592" width="16" height="16"/>
+  <object name="Spike" x="384" y="592" width="16" height="16"/>
+  <object name="Spike" x="352" y="592" width="16" height="16"/>
+  <object name="Spike" x="368" y="496" width="16" height="16"/>
+  <object name="Spike" x="400" y="496" width="16" height="16"/>
+  <object name="Spike" x="432" y="496" width="16" height="16"/>
+  <object name="Spike" x="384" y="400" width="16" height="16"/>
+  <object name="Spike" x="416" y="400" width="16" height="16"/>
+  <object name="Spike" x="448" y="400" width="16" height="16"/>
+  <object name="Spike" x="400" y="304" width="16" height="16"/>
+  <object name="Spike" x="432" y="304" width="16" height="16"/>
+  <object name="Spike" x="464" y="496" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="Flies" width="64" height="48">
+  <object name="Fly" x="64" y="80" width="16" height="16"/>
+  <object name="Fly" x="192" y="176" width="16" height="16"/>
+  <object name="Fly" x="880" y="192" width="16" height="16"/>
+  <object name="Fly" x="816" y="48" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="Slimes" width="64" height="48">
+  <object name="Slime" x="720" y="656" width="16" height="16"/>
+  <object name="Slime" x="288" y="656" width="16" height="16"/>
+  <object name="Slime" x="624" y="720" width="16" height="16"/>
+  <object name="Slime" x="384" y="720" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="Lava" width="64" height="48">
+  <object name="Lava" x="800" y="752" width="16" height="16"/>
+  <object name="Lava" x="816" y="752" width="16" height="16"/>
+  <object name="Lava" x="832" y="752" width="16" height="16"/>
+  <object name="Lava" x="848" y="752" width="16" height="16"/>
+  <object name="Lava" x="864" y="752" width="16" height="16"/>
+  <object name="Lava" x="880" y="752" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="Water" width="64" height="48">
+  <object name="Water" x="128" y="752" width="16" height="16"/>
+  <object name="Water" x="144" y="752" width="16" height="16"/>
+  <object name="Water" x="160" y="752" width="16" height="16"/>
+  <object name="Water" x="176" y="752" width="16" height="16"/>
+  <object name="Water" x="192" y="752" width="16" height="16"/>
+  <object name="Water" x="208" y="752" width="16" height="16"/>
+ </objectgroup>
+</map>
