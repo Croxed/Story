@@ -2,6 +2,8 @@ package main.entity;
 
 import main.BoundingBox;
 import main.Game;
+import main.block.LavaBlock;
+import main.block.WaterBlock;
 import main.spell.Spell;
 
 import org.newdawn.slick.Animation;
@@ -17,8 +19,9 @@ public class Player extends Entity
 	private boolean debug = false; // DEBUG
 	private boolean jumping = false;
 	private boolean falling = false;
-	private boolean spellAttackCD, hurt;
+	private boolean spellAttackCD, hurt, inWater, inLava, onFire;
 	private int health = 5;
+	private int mana = 10;
 	private int stars = 0;
 	private int score = 0;
 	private int damage = 1;
@@ -43,6 +46,8 @@ public class Player extends Entity
 		registerNewEntity();
 		registerNewCooldown("spellAttack", 500);
 		registerNewCooldown("hurt", 500);
+		registerNewCooldown("inLava", 500);
+		registerNewCooldown("inWater", 500);
 		System.out.println("Player Info: Width: " + Xpx + " Height: " + Ypx + " X: " + x + " Y: " + y);
 	}
 
@@ -145,14 +150,30 @@ public class Player extends Entity
 			}
 			Log.info("Player hit by an enemy!!");
 		}
+
+		if(box instanceof LavaBlock)
+		{
+			onFire = true;
+			inLava = true;
+			SPEED -= 0.001;
+			startCooldown("inLava", 500);
+		}
+
+		if(box instanceof WaterBlock)
+		{
+			inWater = true;
+			SPEED -= 0.001;
+			startCooldown("inWater", 500);
+		}
 	}
 
 	public void attack()
 	{
-		if(!spellAttackCD)
+		if(!spellAttackCD && mana > 0)
 		{
 			Game.renderList.add(new Spell(getX(), getY(), 16, 16,
 					damage, spellAnimationLeft, spellAnimationRight, Game.bitKeys.lastX(), Game.bitKeys.lastY()));
+			mana -= 1;
 			spellAttackCD = true;
 			startCooldown("spellAttack", 500);
 		}
@@ -195,6 +216,18 @@ public class Player extends Entity
 		if(cooldownName.equals("hurt"))
 		{
 			hurt = false;
+		}
+
+		if(cooldownName.equals("inLava"))
+		{
+			inLava = false;
+			restoreSPEED();
+		}
+
+		if(cooldownName.equals("inWater"))
+		{
+			inWater = false;
+			restoreSPEED();
 		}
 	}
 
@@ -298,5 +331,15 @@ public class Player extends Entity
 	public int getScore()
 	{
 		return score;
+	}
+
+	public int getMana()
+	{
+		return mana;
+	}
+
+	public void restoreSPEED()
+	{
+		SPEED = 0.17f;
 	}
 }

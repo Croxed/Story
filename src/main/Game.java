@@ -54,7 +54,7 @@ public class Game extends BasicGameState {
 	private Image starImage, shroomImageRed, shroomImageYellow,
 	shroomImageGreen, shroomImageBlue, shroomImagePurple, bronze_coin, silver_coin, gold_coin ,saveSign, helpSign, questSign, healSign, 
 	fullHeart, emptyHeart, background, numberZero, numberOne, numberTwo, numberThree, numberFour, numberFive, numberSix, numberSeven, numberEight,
-	numberNine, foreground;
+	numberNine, foreground, fullManaCrystal, halfManaCrystal, emptyManaCrystal;
 	private float spawnX, spawnY;
 	private int starsLayerIndex, shroomsLayerIndex, coinsLayerIndex, spawnLayerIndex, exitLayerIndex, flagsLayerIndex, torchesLayerIndex, signsLayerIndex, diamondLayerIndex,
 	keysLayerIndex, spikesLayerIndex, fliesLayerIndex, slimesLayerIndex, waterLayerIndex, lavaLayerIndex;
@@ -474,6 +474,10 @@ public class Game extends BasicGameState {
 		fullHeart = tileSheet.getSprite(4, 1);
 		emptyHeart = tileSheet.getSprite(0, 1);
 
+		fullManaCrystal = new Image("res/tilesets/HUD/full_mana_crystal.png");
+		halfManaCrystal = new Image("res/tilesets/HUD/half_mana_crystal.png");
+		emptyManaCrystal = new Image("res/tilesets/HUD/empty_mana_crystal.png");
+
 		numberZero = new Image("res/tilesets/HUD/hud_0.png");
 		numberOne = new Image("res/tilesets/HUD/hud_1.png");
 		numberTwo = new Image("res/tilesets/HUD/hud_2.png");
@@ -701,9 +705,6 @@ public class Game extends BasicGameState {
 			}
 		}
 
-		//		Image image = new Image("res/lighting/spheres/ggg.png");
-		//		image.drawCentered(player.getCenterX() * invSize, player.getCenterY() * invSize);
-
 		// Sets the overall light on the level/scene
 		Image image2 = new Image("res/lighting/maps/alpha_map_80.png");
 		image2.draw(0, 0);
@@ -721,6 +722,7 @@ public class Game extends BasicGameState {
 		g.setDrawMode(Graphics.MODE_NORMAL);
 
 		drawHearts(container, game, g);
+		drawMana(container, game, g);
 		drawScore(container, game, g);
 		// Objective title (which expands on mouse hover)
 			}
@@ -797,13 +799,98 @@ public class Game extends BasicGameState {
 		}
 	}
 
+	public void drawMana(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
+	{
+		int mana = player.getMana();
+		switch(mana)
+		{
+		case 0:
+			g.drawImage(emptyManaCrystal, 20, 50);
+			g.drawImage(emptyManaCrystal, 55, 50);
+			g.drawImage(emptyManaCrystal, 90, 50);
+			g.drawImage(emptyManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 1:
+			g.drawImage(halfManaCrystal,  20, 50);
+			g.drawImage(emptyManaCrystal, 55, 50);
+			g.drawImage(emptyManaCrystal, 90, 50);
+			g.drawImage(emptyManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 2:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(emptyManaCrystal, 55, 50);
+			g.drawImage(emptyManaCrystal, 90, 50);
+			g.drawImage(emptyManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 3:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(halfManaCrystal, 55, 50);
+			g.drawImage(emptyManaCrystal, 90, 50);
+			g.drawImage(emptyManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 4:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(fullManaCrystal, 55, 50);
+			g.drawImage(emptyManaCrystal, 90, 50);
+			g.drawImage(emptyManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 5:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(fullManaCrystal, 55, 50);
+			g.drawImage(halfManaCrystal, 90, 50);
+			g.drawImage(emptyManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 6:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(fullManaCrystal, 55, 50);
+			g.drawImage(fullManaCrystal, 90, 50);
+			g.drawImage(emptyManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 7:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(fullManaCrystal, 55, 50);
+			g.drawImage(fullManaCrystal, 90, 50);
+			g.drawImage(halfManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 8:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(fullManaCrystal, 55, 50);
+			g.drawImage(fullManaCrystal, 90, 50);
+			g.drawImage(fullManaCrystal, 125, 50);
+			g.drawImage(emptyManaCrystal, 160, 50);
+			break;
+		case 9:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(fullManaCrystal, 55, 50);
+			g.drawImage(fullManaCrystal, 90, 50);
+			g.drawImage(fullManaCrystal, 125, 50);
+			g.drawImage(halfManaCrystal, 160, 50);
+			break;
+		case 10:
+			g.drawImage(fullManaCrystal, 20, 50);
+			g.drawImage(fullManaCrystal, 55, 50);
+			g.drawImage(fullManaCrystal, 90, 50);
+			g.drawImage(fullManaCrystal, 125, 50);
+			g.drawImage(fullManaCrystal, 160, 50);
+			break;
+		}
+	}
+
 	/*
 	 * Draw the fancy player scores
 	 */
 	public void drawScore(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
 	{
 		String score =  String.valueOf(player.getScore());
-		float Y = 50;
+		float Y = 85;
 		float X = 20;
 
 		for(int i = 0; i < score.length(); i++)
@@ -846,11 +933,7 @@ public class Game extends BasicGameState {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.newdawn.slick.state.GameState#update(org.newdawn.slick.GameContainer, org.newdawn.slick.state.StateBasedGame, int)
-	 * 
-	 * 
+	/**
 	 *  Direction: RIGHT = 1, LEFT = 0
 	 */
 	@Override
