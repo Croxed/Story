@@ -20,6 +20,14 @@ public abstract class Entity implements BoundingBox {
 
 	public abstract void death();
 
+	public abstract void cooldownFinished(String cooldownName);
+
+	public abstract void startCooldown(String cooldownName, int time);
+
+	public abstract void registerNewEntity();
+
+	public abstract void registerNewCooldown(String cooldownName, int time);
+
 	@Override
 	public float getMinX()
 	{

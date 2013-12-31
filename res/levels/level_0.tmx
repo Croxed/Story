@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="64" height="48" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="base_tileset" tilewidth="16" tileheight="16">
-  <image source="../../../Orginal of Sidescroller_16x16/res/tilesets/base_tileset.png" width="1024" height="1728"/>
+  <image source="../../../Story/res/tilesets/base_tileset.png" width="1024" height="1728"/>
   <tile id="3183">
    <properties>
     <property name="Blocked" value="true"/>

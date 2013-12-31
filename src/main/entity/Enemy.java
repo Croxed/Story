@@ -181,4 +181,25 @@ public class Enemy extends Entity {
 	{
 		this.health = health;
 	}
+
+	@Override
+	public void cooldownFinished(String cooldownName) {}
+
+	@Override
+	public void registerNewEntity() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void startCooldown(String cooldownName, int time) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void registerNewCooldown(String cooldownName, int time) {
+		// TODO Auto-generated method stub
+
+	}
 }

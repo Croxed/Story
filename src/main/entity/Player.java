@@ -1,7 +1,5 @@
 package main.entity;
 
-import java.util.Timer;
-
 import main.BoundingBox;
 import main.Game;
 import main.spell.Spell;
@@ -17,13 +15,9 @@ import org.newdawn.slick.util.Log;
 public class Player extends Entity
 {
 	private boolean debug = false; // DEBUG
-	private boolean hurt = false;
 	private boolean jumping = false;
 	private boolean falling = false;
-	private boolean fireBallCD = false;
-	private boolean healthLostCD = false;
-	private int fireBallCDTime = 500;
-	private int healthLostCDTime = 500;
+	private boolean spellAttackCD, hurt;
 	private int health = 5;
 	private int stars = 0;
 	private int score = 0;
@@ -33,7 +27,6 @@ public class Player extends Entity
 	private Image top;
 	private float velocityY = 0.0f;
 	private float SPEED = 0.17f, GRAVITATIONAL_CONSTANT = 0.010f, spawnX, spawnY;
-	private Timer timer = new Timer();
 
 	public Player(float x, float y, float Xpx, float Ypx, Animation moveAnimationRight,
 			Animation moveAnimationLeft, Image top, Animation spellAnimationRight, Animation spellAnimationLeft)
@@ -47,6 +40,9 @@ public class Player extends Entity
 		this.spellAnimationLeft = spellAnimationLeft;
 		this.sprite = moveAnimationLeft;
 		this.top = top;
+		registerNewEntity();
+		registerNewCooldown("spellAttack", 500);
+		registerNewCooldown("hurt", 500);
 		System.out.println("Player Info: Width: " + Xpx + " Height: " + Ypx + " X: " + x + " Y: " + y);
 	}
 
@@ -123,27 +119,7 @@ public class Player extends Entity
 
 		}
 
-		// Handle cooldowns & timers for all the attacks & spells 
-		if(fireBallCD)
-		{
-			fireBallCDTime += delta;
-			if(fireBallCDTime > 500)
-			{
-				fireBallCD = false;
-			}
-		}
-
-		if(healthLostCD)
-		{
-			healthLostCDTime += delta;
-			if(healthLostCDTime > 500)
-			{
-				healthLostCD = false;
-			}
-		}
-
-		// Handle input for attacks & stuffs
-		// TODO: Need to have a attack cooldown/fixed firerate
+		// Handle input for attacks & stuffs 
 		if(Game.bitKeys.isLeftMouseClicked())
 		{
 			attack();
@@ -161,54 +137,83 @@ public class Player extends Entity
 	{
 		if(box instanceof Enemy)
 		{
-			if(!healthLostCD)
+			if(!hurt)
 			{
 				takeDamage(1);
-				healthLostCD = true;
-				healthLostCDTime = 0;
+				hurt = true;
+				startCooldown("hurt", 500);
 			}
 			Log.info("Player hit by an enemy!!");
 		}
-
-		// Implement a solid cooldown system to keep track of all the things
-
-		// HurtCD, SpellAttackCD, AttackCD, periodic fire damage, freeze effects, 
-
-		//		if(box instanceof LavaBlock)
-		//		{
-		//			this.SPEED -= 0.00001f;
-		//			// Start the timer for periodic damage (aka fire on the char)
-		//			if(lavaTimer >= 500)
-		//			{
-		//				health -= 1;
-		//				lavaTimer = 0;
-		//			}
-		//		}
-		//
-		//		if(box instanceof WaterBlock)
-		//		{
-		//			this.SPEED -= 0.00001f;
-		//			if(waterTimer >= 500)
-		//			{
-		//				health -= 1;
-		//				waterTimer = 0;
-		//			}
-		//		}
 	}
 
-	/*
-	 * Adds a new spell to the render list (aka game world)
-	 */
 	public void attack()
 	{
-		// Set the cooldown to true
-		if(!fireBallCD)
+		if(!spellAttackCD)
 		{
 			Game.renderList.add(new Spell(getX(), getY(), 16, 16,
 					damage, spellAnimationLeft, spellAnimationRight, Game.bitKeys.lastX(), Game.bitKeys.lastY()));
-			fireBallCD = true;
-			fireBallCDTime = 0;
+			spellAttackCD = true;
+			startCooldown("spellAttack", 500);
 		}
+	}
+
+	@Override
+	public void takeDamage(int damage) 
+	{
+		if(!hurt)
+		{
+			hurt = true;
+			startCooldown("hurt", 500);
+			health -= damage;
+			if(getHealth() - damage < 0)
+			{
+				health = 0;
+				death();
+			}
+		}
+	}
+
+	@Override
+	public void death() 
+	{
+		// TODO: Draw the death animation, bring up the deathScreen, animate smoke at the deathscene, render the hurt animation 
+		health = 5;
+		score = 0;
+		this.setX(spawnX);
+		this.setY(spawnY);
+	}
+
+	@Override
+	public void cooldownFinished(String cooldownName) 
+	{
+		if(cooldownName.equals("spellAttack"))
+		{
+			spellAttackCD = false;
+		}
+
+		if(cooldownName.equals("hurt"))
+		{
+			hurt = false;
+		}
+	}
+
+	@Override
+	public void startCooldown(String cooldownName, int time) 
+	{
+		Game.cooldownManager.activateCooldown(this, cooldownName, time);
+	}
+
+	@Override
+	public void registerNewEntity() 
+	{
+		Game.cooldownManager.registerNewEntity(this);
+	}
+
+	@Override
+	public void registerNewCooldown(String cooldownName, int time) 
+	{
+		Game.cooldownManager.registerNewCooldown(cooldownName, time, this);
 	}
 
 	public void setSprite(int i)
@@ -293,27 +298,5 @@ public class Player extends Entity
 	public int getScore()
 	{
 		return score;
-	}
-
-	@Override
-	public void takeDamage(int damage) 
-	{
-		hurt = true;
-		health -= damage;
-		if(getHealth() - damage < 0)
-		{
-			health = 0;
-			death();
-		}
-	}
-
-	@Override
-	public void death() 
-	{
-		// TODO: Draw the death animation, bring up the deathScreen, animate smoke at the deathscene, render the hurt animation also ...
-		health = 5;
-		score = 0;
-		this.setX(spawnX);
-		this.setY(spawnY);
 	}
 }

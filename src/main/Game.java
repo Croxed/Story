@@ -45,6 +45,7 @@ public class Game extends BasicGameState {
 	public static List<BoundingBox> renderList;
 	public List<BoundingBox> updateList;
 	public static List<LightSource> lightSourceList;
+	public static CooldownManager cooldownManager;
 
 	private int[] duration = {300, 300};
 	private int[] spellAniDuration = {250, 200, 250, 200};
@@ -85,6 +86,9 @@ public class Game extends BasicGameState {
 
 		// Init object "might collide" list - for Entites
 		returnObjects = new ArrayList<BoundingBox>();
+
+		// Init CooldownManager
+		cooldownManager = new CooldownManager();
 
 		// Init BitKeys for handling inputs
 		bitKeys = new BitKeys();
@@ -851,7 +855,11 @@ public class Game extends BasicGameState {
 	 */
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
-			throws SlickException {
+			throws SlickException 
+			{
+		// Call the cooldownManager for it's milisecondly dose of delta
+		cooldownManager.update(delta);
+
 		for(int i = 0; i < renderList.size(); i++)
 		{
 			try
@@ -883,7 +891,7 @@ public class Game extends BasicGameState {
 				}
 			}
 		}
-	}
+			}
 
 	/*
 	 * Gets the closest X block
