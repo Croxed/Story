@@ -35,7 +35,6 @@ public class CooldownManager {
 			this.name = name;
 			this.time = time;
 			this.ownerEntity = ownerEntity;
-			this.activated = true;
 		}
 
 		/**
@@ -56,10 +55,17 @@ public class CooldownManager {
 		 */
 		public void finish()
 		{
-			// Calls the entity that this cooldown belongs to.
-			ownerEntity.cooldownFinished(name);
+			callOwnerEntity();
 			deActivate();
 			refresh();
+		}
+
+		/**
+		 * Notifies the owner of the cooldown
+		 */
+		public void callOwnerEntity()
+		{
+			ownerEntity.cooldownFinished(name);
 		}
 
 		/**
@@ -122,6 +128,53 @@ public class CooldownManager {
 		}
 	}
 
+	/**
+	 * RepeatingCooldown is useful for periodically effects & other things that happen more than once
+	 * or on a fixed interval.
+	 */
+	public static class RepeatingCooldown extends Cooldown
+	{
+		// Number of times this cooldown shall repeat
+		int repeat;
+
+		// Number of times this cooldown have repeated
+		int counter;
+
+		public RepeatingCooldown(String name, int time, Entity ownerEntity, int repeat) 
+		{
+			super(name, time, ownerEntity);
+			this.repeat = repeat;
+		}
+
+		@Override
+		public void update(int delta)
+		{
+			timePassed += delta;
+			if(timePassed >= time)
+			{
+				counter++;
+				callOwnerEntity();
+				timePassed = 0;
+				if(counter >= repeat)
+				{
+					finish();
+				}
+			}
+		}
+
+		@Override
+		public void refresh()
+		{
+			timePassed = 0;
+			counter = 0;
+		}
+
+		public void setRepeat(int repeat)
+		{
+			this.repeat = repeat;
+		}
+	}
+
 	public CooldownManager()
 	{
 		Log.info("CooldownManager initialized ... ");
@@ -155,6 +208,18 @@ public class CooldownManager {
 	}
 
 	/**
+	 * Registers a new repeating cooldown on the specific Entity
+	 * @param name Name of the cooldown
+	 * @param time The length of the cooldown in milliseconds
+	 * @param ownerEntity The Entity that this cooldown belongs to
+	 * @param repeat Number of times to repeat this cooldown.
+	 */
+	public void registerNewRepeatingCooldown(String name, int time, Entity ownerEntity, int repeat)
+	{
+		hashMap.get(ownerEntity).add(new RepeatingCooldown(name, time, ownerEntity, repeat));
+	}
+
+	/**
 	 * Registers a new Entity in the internal HashMap - if Entity wants to use cooldowns it needs to register.
 	 */
 	public void registerNewEntity(Entity ownerEntity)
@@ -178,7 +243,7 @@ public class CooldownManager {
 
 	/**
 	 * Activates (starts) the cooldown also sets the time of the cooldown. 
-	 * It essentially makes sure the cooldown is activated and goes for the time passed on (kind of like a refresh).
+	 * It essentially makes sure the cooldown is activated and goes for the time passed on.
 	 */
 	public void activateCooldown(Entity ownerEntity, String cooldownName, int time)
 	{
@@ -188,6 +253,23 @@ public class CooldownManager {
 			{
 				cooldown.activate();
 				cooldown.setTime(time);
+			}
+		}
+	}
+
+	/**
+	 * Activates (starts) the repeating cooldown also sets the time of the cooldown & repeat.
+	 * It essentially makes sure the cooldown is activated and goes for the time passed and the repeat passed.
+	 */
+	public void activateCooldown(Entity ownerEntity, String cooldownName, int time, int repeat)
+	{
+		for(Cooldown cooldown : hashMap.get(ownerEntity))
+		{
+			if(cooldown.getName().equals(cooldownName))
+			{
+				cooldown.activate();
+				cooldown.setTime(time);
+				((RepeatingCooldown) cooldown).setRepeat(repeat);
 			}
 		}
 	}
@@ -236,13 +318,6 @@ public class CooldownManager {
 		}
 	}
 
-	/**
-	 * Clears (without finishing) all the cooldowns for the specific Entity
-	 */
-	public void clearEntityCooldowns(Entity entity)
-	{
-		hashMap.get(entity).clear();
-	}
 
 	/**
 	 * Change the time of a specific cooldown

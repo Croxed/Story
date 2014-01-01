@@ -10,8 +10,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Start extends StateBasedGame
 {
-	public static Game world;
-
 	public Start()
 	{
 		super("Story");
@@ -54,7 +52,6 @@ public class Start extends StateBasedGame
 	public void initStatesList(GameContainer container) throws SlickException 
 	{
 		addState(new Menu());
-		addState(world = new Game());
+		addState(new Game());
 	}
 }
-

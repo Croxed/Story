@@ -43,7 +43,7 @@ public class Game extends BasicGameState {
 	private static QuadTree quadTree;
 	private List<BoundingBox> returnObjects;
 	public static List<BoundingBox> renderList;
-	public List<BoundingBox> updateList;
+	public static List<BoundingBox> updateList;
 	public static List<LightSource> lightSourceList;
 	public static CooldownManager cooldownManager;
 
@@ -282,14 +282,12 @@ public class Game extends BasicGameState {
 			spawnX = xAxis * SIZE;
 			spawnY = yAxis * SIZE;
 		}
-
 	}
 
 	public void initGround() throws SlickException
 	{
 		// Skriv om blocked för att tillåta förstörbara block såsom lådor & hinder
 		// Detta kommer tillåta flyttbara block också!
-
 		blocked = new boolean[MAP_WIDTH][MAP_HEIGHT];
 
 		// Init ground
@@ -446,8 +444,6 @@ public class Game extends BasicGameState {
 				break;
 			}
 		}
-
-		// Iterate from through the Sign array then init the objects ..
 	}
 
 	public void initExit() throws SlickException
@@ -724,6 +720,7 @@ public class Game extends BasicGameState {
 		drawHearts(container, game, g);
 		drawMana(container, game, g);
 		drawScore(container, game, g);
+		drawExp(container, game, g);
 		// Objective title (which expands on mouse hover)
 			}
 
@@ -931,6 +928,11 @@ public class Game extends BasicGameState {
 			}
 			X += 32;
 		}
+	}
+
+	public void drawExp(GameContainer container, StateBasedGame game, Graphics g) throws SlickException
+	{
+		// TODO 
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import main.BoundingBox;
 import main.Game;
+import main.item.ExpOrb;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -17,7 +18,7 @@ public class Enemy extends Entity {
 
 	protected Animation sprite, leftAnimation, rightAnimation;
 	protected Image hurtImage, deathImage;
-	protected int health = 5;
+	protected int health = 1;
 	protected int directionX = 0;
 	protected int directionY = 0;
 	protected int targetX;
@@ -96,8 +97,7 @@ public class Enemy extends Entity {
 	@Override
 	public void collision(BoundingBox boundingBox) 
 	{
-		// TODO Auto-generated method stub
-
+		// TODO 
 	}
 
 	@Override
@@ -132,6 +132,8 @@ public class Enemy extends Entity {
 	{
 		dead = true;
 		Game.player.addScore(5);
+		// TODO For the moment all Enemies drops a one sized ExpOrb.
+		new ExpOrb(getX(), getY(), 1);
 	}
 
 
@@ -183,23 +185,14 @@ public class Enemy extends Entity {
 	}
 
 	@Override
-	public void cooldownFinished(String cooldownName) {}
-
-	@Override
-	public void registerNewEntity() {
-		// TODO Auto-generated method stub
-
+	public void cooldownFinished(String cooldownName)
+	{
+		// TODO
 	}
 
 	@Override
-	public void startCooldown(String cooldownName, int time) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void registerNewCooldown(String cooldownName, int time) {
-		// TODO Auto-generated method stub
-
+	public void startCooldown(String cooldownName, int time)
+	{
+		// TODO
 	}
 }

@@ -11,6 +11,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
 
@@ -19,17 +20,18 @@ public class Player extends Entity
 	private boolean debug = false; // DEBUG
 	private boolean jumping = false;
 	private boolean falling = false;
-	private boolean spellAttackCD, hurt, inWater, inLava, onFire;
+	private boolean spellAttackCD, hurt, onFire;
 	private int health = 5;
 	private int mana = 10;
+	private int exp = 0;
 	private int stars = 0;
 	private int score = 0;
 	private int damage = 1;
 	private int shrooms = 0;
 	private Animation sprite, moveAnimationRight, moveAnimationLeft, spellAnimationRight, spellAnimationLeft;
-	private Image top;
+	private Image top, fireCloud;
 	private float velocityY = 0.0f;
-	private float SPEED = 0.17f, GRAVITATIONAL_CONSTANT = 0.010f, spawnX, spawnY;
+	private float SPEED = 0.14f, GRAVITATIONAL_CONSTANT = 0.010f, spawnX, spawnY;
 
 	public Player(float x, float y, float Xpx, float Ypx, Animation moveAnimationRight,
 			Animation moveAnimationLeft, Image top, Animation spellAnimationRight, Animation spellAnimationLeft)
@@ -43,11 +45,17 @@ public class Player extends Entity
 		this.spellAnimationLeft = spellAnimationLeft;
 		this.sprite = moveAnimationLeft;
 		this.top = top;
-		registerNewEntity();
-		registerNewCooldown("spellAttack", 500);
-		registerNewCooldown("hurt", 500);
-		registerNewCooldown("inLava", 500);
-		registerNewCooldown("inWater", 500);
+
+		// Init res
+		initRes();
+
+		registerNewEntity(this);
+		registerNewCooldown("spellAttack", 500, this);
+		registerNewCooldown("hurt", 500, this);
+		registerNewCooldown("inLava", 500, this);
+		registerNewCooldown("inWater", 500, this);
+		registerNewCooldown("onFireDamage", 1000, 3, this);
+		registerNewCooldown("onFire", 3000, this);
 		System.out.println("Player Info: Width: " + Xpx + " Height: " + Ypx + " X: " + x + " Y: " + y);
 	}
 
@@ -56,6 +64,18 @@ public class Player extends Entity
 	{
 		sprite.draw(getX(), getY()); // Draws the body of the player
 		g.drawImage(top, getX(), getY() - 16); // Draws the image with the top over the player
+
+		// Draw the blood decal on top of the Player
+		if(hurt)
+		{
+
+		}
+
+		// Draw the fire decal on top of the Player
+		if(onFire)
+		{
+			fireCloud.drawCentered(getCenterX(), getCenterY());
+		}
 
 		if(debug)
 		{
@@ -154,15 +174,15 @@ public class Player extends Entity
 		if(box instanceof LavaBlock)
 		{
 			onFire = true;
-			inLava = true;
-			SPEED -= 0.001;
+			SPEED = 0.08f;
 			startCooldown("inLava", 500);
+			startCooldown("onFireDamage", 1000, 3);
+			startCooldown("onFire", 3000);
 		}
 
 		if(box instanceof WaterBlock)
 		{
-			inWater = true;
-			SPEED -= 0.001;
+			SPEED = 0.08f;
 			startCooldown("inWater", 500);
 		}
 	}
@@ -201,6 +221,7 @@ public class Player extends Entity
 		// TODO: Draw the death animation, bring up the deathScreen, animate smoke at the deathscene, render the hurt animation 
 		health = 5;
 		score = 0;
+		mana = 10;
 		this.setX(spawnX);
 		this.setY(spawnY);
 	}
@@ -220,33 +241,28 @@ public class Player extends Entity
 
 		if(cooldownName.equals("inLava"))
 		{
-			inLava = false;
 			restoreSPEED();
 		}
 
 		if(cooldownName.equals("inWater"))
 		{
-			inWater = false;
 			restoreSPEED();
+		}
+
+		if(cooldownName.equals("onFireDamage"))
+		{
+			takeDamage(1);
+		}
+
+		if(cooldownName.equals("onFire"))
+		{
+			onFire = false;
 		}
 	}
 
-	@Override
-	public void startCooldown(String cooldownName, int time) 
+	public void givePlayerExp(int exp)
 	{
-		Game.cooldownManager.activateCooldown(this, cooldownName, time);
-	}
-
-	@Override
-	public void registerNewEntity() 
-	{
-		Game.cooldownManager.registerNewEntity(this);
-	}
-
-	@Override
-	public void registerNewCooldown(String cooldownName, int time) 
-	{
-		Game.cooldownManager.registerNewCooldown(cooldownName, time, this);
+		this.exp += exp;
 	}
 
 	public void setSprite(int i)
@@ -338,8 +354,26 @@ public class Player extends Entity
 		return mana;
 	}
 
+	public int getExp()
+	{
+		return exp;
+	}
+
 	public void restoreSPEED()
 	{
 		SPEED = 0.17f;
+	}
+
+	public void initRes()
+	{
+		try 
+		{
+			// TODO Fill this with all the resource getting for the Player.
+			fireCloud = new Image("res/crawl_tiles/effect/bolt04.png");
+		} catch (SlickException e) 
+		{
+			Log.error("Failed to load res for Player.");
+			e.printStackTrace();
+		}
 	}
 }

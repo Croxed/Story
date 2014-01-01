@@ -51,10 +51,10 @@ public class Menu extends BasicGameState
 			arg1.enterState(1, new FadeOutTransition(), new FadeInTransition());
 		}
 			}
+
 	@Override
 	public int getID() 
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

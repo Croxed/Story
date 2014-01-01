@@ -15,6 +15,7 @@ public class WaterBlock extends Block {
 	public WaterBlock(float x, float y) 
 	{
 		super(x, y, 15, 15);
+		Game.renderList.add(this);
 		initRes();
 	}
 

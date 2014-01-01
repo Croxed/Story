@@ -20,7 +20,7 @@ public class Torch extends Item implements LightSource {
 	{
 		super(x, y, Xpx, Ypx);
 		this.animation = animation;
-		initLightRes();
+		initRes();
 		Game.renderList.add(this);
 		Game.lightSourceList.add(this);
 	}
@@ -40,9 +40,9 @@ public class Torch extends Item implements LightSource {
 	}
 
 	@Override
-	public void collision(BoundingBox boundingBox) {
+	public void collision(BoundingBox boundingBox) 
+	{
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Torch extends Item implements LightSource {
 		lightImage.drawCentered(getCenterX(), getCenterY());
 	}
 
-	public void initLightRes()
+	public void initRes()
 	{
 		try
 		{

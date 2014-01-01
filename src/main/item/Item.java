@@ -1,9 +1,11 @@
 package main.item;
 
 import main.BoundingBox;
+import main.Game;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.util.Log;
 
 public abstract class Item implements BoundingBox {
 
@@ -12,6 +14,20 @@ public abstract class Item implements BoundingBox {
 	public Item(float x, float y, float Xpx, float Ypx)
 	{
 		boundingBox = new Rectangle(x, y, Xpx, Ypx);
+	}
+
+	void destroyItem()
+	{
+		try
+		{
+			Game.renderList.remove(this);
+			Game.updateList.remove(this);
+			Game.lightSourceList.remove(this);
+		}catch(NullPointerException e)
+		{
+			Log.error("Tried to remove " + this.toString()  + " from a list which there was none. No harm done.");
+			e.printStackTrace();
+		}
 	}
 
 	@Override

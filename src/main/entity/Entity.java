@@ -1,9 +1,11 @@
 package main.entity;
 
 import main.BoundingBox;
+import main.Game;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.util.Log;
 
 public abstract class Entity implements BoundingBox {
 
@@ -12,6 +14,9 @@ public abstract class Entity implements BoundingBox {
 	public Entity(float x, float y, float Xpx, float Ypx)
 	{
 		boundingBox = new Rectangle(x, y, Xpx, Ypx);
+		// TODO: Remove all the manual adding to the update & render list from the code. Goal is to rely on these two lines alone.
+		// Game.renderList.add(this);
+		// Game.updateList.add(this);
 	}
 
 	public abstract int getHealth();
@@ -22,11 +27,44 @@ public abstract class Entity implements BoundingBox {
 
 	public abstract void cooldownFinished(String cooldownName);
 
-	public abstract void startCooldown(String cooldownName, int time);
+	void startCooldown(String cooldownName, int time) 
+	{
+		Game.cooldownManager.activateCooldown(this, cooldownName, time);
+	}
 
-	public abstract void registerNewEntity();
+	public void startCooldown(String cooldownName, int time, int repeat) 
+	{
+		Game.cooldownManager.activateCooldown(this, cooldownName, time, repeat);
+	}
 
-	public abstract void registerNewCooldown(String cooldownName, int time);
+	void registerNewEntity(Entity ownerEntity)
+	{
+		Game.cooldownManager.registerNewEntity(ownerEntity);
+	}
+
+	void registerNewCooldown(String cooldownName, int time, Entity ownerEntity)
+	{
+		Game.cooldownManager.registerNewCooldown(cooldownName, time, ownerEntity);
+	}
+
+	void registerNewCooldown(String cooldownName, int time, int repeat, Entity ownerEntity)
+	{
+		Game.cooldownManager.registerNewRepeatingCooldown(cooldownName, time, ownerEntity, repeat);
+	}
+
+	void destroyEntity()
+	{
+		try
+		{
+			Game.renderList.remove(this);
+			Game.updateList.remove(this);
+			Game.lightSourceList.remove(this);
+		}catch(NullPointerException e)
+		{
+			Log.error("Tried to remove " + this.toString() + " from a list which there was none. No harm done.");
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public float getMinX()
