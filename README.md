@@ -21,9 +21,9 @@ So what does the future hold for Story?
 - Chest, locks, buttons, levers, and much much more stuffs!
 
 
-wefwef
+
 
 
 <br>
 _Created by Alexander "Entalpi" Lingtorp - 2013 ©_
-qwf
+
