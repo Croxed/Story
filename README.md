@@ -1,4 +1,4 @@
-# Story
+Story
 =====
 
 A rouge-like role-playing 2D game built with Slick2D.
@@ -22,4 +22,7 @@ So what does the future hold for Story?
 
 
 
+
+
+<br>
 _Created by Alexander "Entalpi" Lingtorp - 2013 ©_
