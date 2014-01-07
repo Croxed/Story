@@ -1,6 +1,6 @@
 # Story
 =====
------
+_____
 
 A rouge-like role-playing 2D game built with Slick2D.
 
