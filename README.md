@@ -1,4 +1,4 @@
-# Story
+Story
 =====
 
 A rouge-like role-playing 2D game built with Slick2D.
@@ -14,11 +14,11 @@ Every asset or line that is written in this game shall be free to use, modify, f
 
 So what does the future hold for Story?
 
-- [ ] Talent system
-- [ ] Iventory system
-- [ ] Modular level implementation 
-- [ ] Class system
-- [ ] Chest, locks, buttons, levers, and much much more stuffs!
+- Talent system
+- Iventory system
+- Modular level implementation 
+- Class system
+- Chest, locks, buttons, levers, and much much more stuffs!
 
 
 
