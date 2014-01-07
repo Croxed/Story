@@ -25,4 +25,9 @@ So what does the future hold for Story?
 
 
 <br>
+<<<<<<< HEAD
 _Created by Alexander "Entalpi" Lingtorp - 2013 ©_
+=======
+_Created by Alexander "Entalpi" Lingtorp - 2013 ©_
+
+>>>>>>> 7c7fdcfe31bb5658f9d0cca41986e31390833b91
